@@ -13,10 +13,10 @@ export const AppProvider = ({ children }) => {
 
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
-  const [isOwnner, setIsOwner] = useState(null);
-  const [showLogin, setShowLogin] = useState(null);
-  const [pickupDate, setPickupDate] = useState(null);
-  const [returnDate, setreturnDate] = useState(null);
+  const [isOwner, setIsOwner] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [pickupDate, setPickupDate] = useState('');
+  const [returnDate, setreturnDate] = useState('');
 
   const [cars, setCars] = useState([]);
 
@@ -39,7 +39,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchCars = async () => {
     try {
-      const { data } = await axios.get("/api/users/cars");
+      const { data } = await axios.get("/api/user/cars");
       data.success ? setCars(data.cars) : toast.error(data.message);
     } catch (error) {
       toast.error(error.message);
@@ -57,19 +57,16 @@ export const AppProvider = ({ children }) => {
   }
 
   // useEffect to retrieve the token from localStorage
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+ useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
     setToken(token);
-    fetchCars()
-  }, []);
+    axios.defaults.headers.common["Authorization"] = `${token}`;
+    fetchUser();  
+  }
+  fetchCars();
+}, [token]);
 
-  // useEffect to fetch user data when token is available
-  useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `${token}`;
-      fetchUser();
-    }
-  }, [token]);
 
   const value = {
     navigate,
@@ -79,7 +76,7 @@ export const AppProvider = ({ children }) => {
     setUser,
     token,
     setToken,
-    isOwnner,
+    isOwner,
     setIsOwner,
     fetchUser,
     showLogin,
