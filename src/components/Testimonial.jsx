@@ -1,36 +1,52 @@
 import React from "react";
 import Title from "./Title";
 import { assets } from "../assets/assets";
+import { motion } from "motion/react";
 
 const Testimonial = () => {
-     const testimonials = [
-        { name: "Emma Rodriguez", 
-        location: "Barcelona, Spain", 
-        image: assets.testimonial_image_1, 
-        rating: 5, 
-        testimonial: "I've rented cars from various companies, but the experience with Luxora Rentals was exceptional." },
+  const testimonials = [
+    {
+      name: "Emma Rodriguez",
+      location: "Barcelona, Spain",
+      image: assets.testimonial_image_1,
+      rating: 5,
+      testimonial:
+        "I've rented cars from various companies, but the experience with Luxora Rentals was exceptional.",
+    },
 
-        { name: "Liam Johnson", 
-        location: "New York, USA", 
-        image: assets.testimonial_image_2, 
-        rating: 4, 
-        testimonial: "Luxora Rentals made my trip so much easier. The car was delivered right to my door, and the customer services was fantastic!" },
+    {
+      name: "Liam Johnson",
+      location: "New York, USA",
+      image: assets.testimonial_image_2,
+      rating: 4,
+      testimonial:
+        "Luxora Rentals made my trip so much easier. The car was delivered right to my door, and the customer services was fantastic!",
+    },
 
-        { name: "Sophia Lee", 
-        location: "Sydney, Australia", 
-        image: assets.testimonial_image_1, 
-        rating: 5, 
-        testimonial: "I highly recommend Luxora Rentals! Their fleet is amazing, and I always feel like I'm getting the best deal with excellent service" }
-    ]
+    {
+      name: "Sophia Lee",
+      location: "Sydney, Australia",
+      image: assets.testimonial_image_1,
+      rating: 5,
+      testimonial:
+        "I highly recommend Luxora Rentals! Their fleet is amazing, and I always feel like I'm getting the best deal with excellent service",
+    },
+  ];
   return (
     <div className="py-28 px-6 md:px-16 lg:px-24 xl:px-44">
+      <Title
+        title="What Our Customer Say"
+        subTitle="Discover why discerning travelers choose StayVenture for their luxury accomodations around the world."
+      />
 
-        <Title title='What Our Customer Say' subTitle='Discover why discerning travelers choose StayVenture for their luxury accomodations around the world.'/>
-      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-18">
-
         {testimonials.map((testimonial, index) => (
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 2, ease: 'easeOut'
+             }}
+             viewport={{ once: true, amount: 0.3 }}
             key={index}
             className="bg-white p-6 rounded-xl shadow-lg hover:translate-y-1 transition-all duration-500"
           >
@@ -49,13 +65,13 @@ const Testimonial = () => {
               {Array(5)
                 .fill(0)
                 .map((_, index) => (
-                    <img key={index} src={assets.star_icon} alt="star" />
+                  <img key={index} src={assets.star_icon} alt="star" />
                 ))}
             </div>
             <p className="text-gray-500 max-w-90 mt-4 font-light">
               "{testimonial.testimonial}"
             </p>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
