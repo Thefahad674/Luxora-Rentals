@@ -1,4 +1,4 @@
-import logo from "./LogoLR.png";
+import logo from "./logoLR.png";
 import gmail_logo from "./gmail_logo.svg";
 import facebook_logo from "./facebook_logo.svg";
 import instagram_logo from "./instagram_logo.svg";
